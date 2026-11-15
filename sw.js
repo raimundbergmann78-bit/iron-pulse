@@ -1,5 +1,5 @@
 /* Service Worker: App offline nutzbar. Mit Internet immer neueste Dateien, ohne Internet aus dem Speicher. */
-const CACHE = 'ironpulse-v38';
+const CACHE = 'ironpulse-v39';
 const FILES = ['./', './index.html', './style.css', './ip.min.js', './manifest.webmanifest',
   './icons/icon-180.png', './icons/icon-192.png', './icons/icon-512.png', './icons/logo_kopf.png', './icons/splash_logo.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting())); });
