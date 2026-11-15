@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>IRON PULSE</title>
+<meta name="description" content="Trainingspläne, WOD-Timer und Bestwerte">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="IRON PULSE">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="stripe s1"></div><div class="stripe s2"></div><div class="stripe s3"></div>
+
+<div id="splash">
+  <div class="stripe s1"></div><div class="stripe s3"></div>
+  <img class="splash-logo" src="icons/splash_logo.png" alt="IRON PULSE – Feel the beat of iron.">
+  <div class="splash-text">
+    <p>Tippen zum Starten</p>
+  </div>
+</div>
+
+<header id="top">
+  <div class="top-links">
+    <div class="top-title" id="topTitle">Heute</div>
+    <div class="top-sub" id="topSub"></div>
+  </div>
+  <img class="top-logo" src="icons/logo_kopf.png" alt="IRON PULSE">
+</header>
+
+<main id="view"></main>
+
+<nav id="nav">
+  <button data-view="heute" class="active"><svg viewBox="0 0 24 24"><path d="M3 10v4M6 8v8M18 8v8M21 10v4M6 12h12"/></svg>Heute</button>
+  <button data-view="plan"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Plan</button>
+  <button data-view="cardio"><svg viewBox="0 0 24 24"><path d="M3 12h4l2-5 4 10 2-5h6"/></svg>Cardio</button>
+  <button data-view="essen"><svg viewBox="0 0 24 24"><path d="M7 3v18M5 3v5a2 2 0 0 0 4 0V3M17 3c-2 2-3 5-3 8h3v10"/></svg>Essen</button>
+  <button data-view="supps"><svg viewBox="0 0 24 24"><rect x="3" y="9" width="18" height="7" rx="3.5" transform="rotate(-35 12 12.5)"/><path d="M9.5 8.5l5 7"/></svg>Supps</button>
+  <button data-view="prs"><svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg>PRs</button>
+  <button data-view="trainer"><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="3"/><path d="M3 21v-2a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v2M17 11l2 2 4-4"/></svg>Trainer</button>
+  <button data-view="mehr"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></svg>Profil</button>
+</nav>
+
+<div id="modal" hidden>
+  <div class="modal-box" id="modalBox"></div>
+</div>
+<script src="ip.min.js"></script>
+</body>
+</html>
