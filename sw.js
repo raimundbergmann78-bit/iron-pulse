@@ -1,7 +1,7 @@
 /* Service Worker: App offline nutzbar. Mit Internet immer neueste Dateien, ohne Internet aus dem Speicher. */
-const CACHE = 'ironpulse-v54';
+const CACHE = 'ironpulse-v55';
 const FILES = ['./', './index.html', './style.css', './ip.min.js', './manifest.webmanifest',
-  './icons/icon-180.png', './icons/icon-192.png', './icons/icon-512.png', './icons/logo_kopf.png', './icons/logo_kopf_dunkel.png', './icons/splash_logo.png'];
+  './icons/icon-180.png', './icons/icon-192.png', './icons/icon-512.png', './icons/logo_kopf.png', './icons/logo_kopf_dunkel.png', './icons/splash_logo.png', './icons/splash_logo_dunkel.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(k => Promise.all(k.filter(x => x !== CACHE).map(x => caches.delete(x)))).then(() => self.clients.claim())); });
 self.addEventListener('fetch', e => {
