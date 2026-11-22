@@ -68,8 +68,8 @@
     document.querySelectorAll('[data-t]').forEach(function (e) { e.textContent = T[l][e.dataset.t]; });
     document.querySelectorAll('.sprachen button').forEach(function (b) { b.classList.toggle('on', b.dataset.l === l); });
   }
-  // Sprache nach dem Land der IP-Adresse: DE -> Deutsch, RO -> Rumaenisch, sonst Englisch (wie in der App, gleicher Speicher ironpulse.land)
-  function landSprache(land) { return land === 'DE' ? 'de' : land === 'RO' ? 'ro' : 'en'; }
+  // Sprache nach dem Land der IP-Adresse: DE/AT/CH -> Deutsch, RO -> Rumaenisch, sonst Englisch (wie in der App, gleicher Speicher ironpulse.land)
+  function landSprache(land) { return ['DE', 'AT', 'CH'].indexOf(land) >= 0 ? 'de' : land === 'RO' ? 'ro' : 'en'; }
   var gewaehlt = false, land = null;
   try { land = localStorage.getItem('ironpulse.land'); } catch (e) { }
   var nav = (navigator.language || '').slice(0, 2);
