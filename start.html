@@ -68,9 +68,23 @@
     document.querySelectorAll('[data-t]').forEach(function (e) { e.textContent = T[l][e.dataset.t]; });
     document.querySelectorAll('.sprachen button').forEach(function (b) { b.classList.toggle('on', b.dataset.l === l); });
   }
-  var start = (navigator.language || 'de').slice(0, 2);
-  sprache(T[start] ? start : 'de');
-  document.querySelectorAll('.sprachen button').forEach(function (b) { b.onclick = function () { sprache(b.dataset.l); }; });
+  // Sprache nach dem Land der IP-Adresse: DE -> Deutsch, RO -> Rumaenisch, sonst Englisch (wie in der App, gleicher Speicher ironpulse.land)
+  function landSprache(land) { return land === 'DE' ? 'de' : land === 'RO' ? 'ro' : 'en'; }
+  var gewaehlt = false, land = null;
+  try { land = localStorage.getItem('ironpulse.land'); } catch (e) { }
+  var nav = (navigator.language || '').slice(0, 2);
+  sprache(land ? landSprache(land) : (nav === 'de' || nav === 'ro' ? nav : 'en'));
+  function landHolen(urls) {
+    if (!urls.length) return;
+    fetch(urls[0], { signal: AbortSignal.timeout(3000) }).then(function (r) { return r.json(); }).then(function (d) {
+      var l = String(d.country || '').toUpperCase();
+      if (!/^[A-Z]{2}$/.test(l)) throw new Error('kein Land');
+      try { localStorage.setItem('ironpulse.land', l); } catch (e) { }
+      if (!gewaehlt) sprache(landSprache(l));
+    }).catch(function () { landHolen(urls.slice(1)); });
+  }
+  if (!land) landHolen(['https://api.country.is/', 'https://get.geojs.io/v1/ip/country.json']);
+  document.querySelectorAll('.sprachen button').forEach(function (b) { b.onclick = function () { gewaehlt = true; sprache(b.dataset.l); }; });
   document.getElementById('zeigen').onclick = function () {
     var f = document.getElementById('filme'); f.classList.add('an'); f.scrollIntoView({ behavior: 'smooth' });
   };
