@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IRON PULSE – Feel the beat of iron.</title>
+<meta name="description" content="IRON PULSE: App öffnen oder Video ansehen">
+<meta property="og:title" content="IRON PULSE – Feel the beat of iron.">
+<meta property="og:description" content="App öffnen oder Video ansehen · Deschide aplicația sau vezi videoclipul · Open the app or watch the video">
+<meta property="og:image" content="film/promo.jpg">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<!-- Startseite zum Teilen: Wer den Link bekommt, waehlt selbst – App oeffnen oder Video ansehen. Weiss, damit man die helle App gut sieht. -->
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #fff; color: #16202b; font-family: Arial, Helvetica, sans-serif; text-align: center; }
+  main { max-width: 760px; margin: 0 auto; padding: 28px 18px calc(36px + env(safe-area-inset-bottom)); }
+  .logo { width: min(300px, 70vw); display: block; margin: 0 auto 6px; }
+  .sprachen { display: flex; justify-content: center; gap: 8px; margin: 10px 0 22px; }
+  .sprachen button { border: 1px solid #d5d9df; background: #fff; color: #c8102e; border-radius: 999px; padding: 6px 14px; font-size: 13px; letter-spacing: 1px; cursor: pointer; }
+  .sprachen button.on { background: #c8102e; color: #fff; border-color: #c8102e; font-weight: 700; }
+  .wahl { display: grid; gap: 14px; }
+  .knopf { display: block; padding: 18px; border-radius: 16px; font-size: 19px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; cursor: pointer; border: 2px solid #c8102e; }
+  .knopf small { display: block; margin-top: 6px; font-size: 13px; font-weight: 400; letter-spacing: 0; text-transform: none; }
+  .app { background: #c8102e; color: #fff; }
+  .film { background: #fff; color: #c8102e; }
+  #filme { display: none; margin-top: 26px; text-align: left; }
+  #filme.an { display: block; }
+  h2 { font-size: 15px; letter-spacing: 2px; text-transform: uppercase; color: #c8102e; margin: 22px 0 8px; }
+  video { display: block; width: 100%; border-radius: 14px; background: #000; }
+  video.hoch { max-width: 380px; margin: 0 auto; }
+  .hinweis { font-size: 13px; color: #6b7480; margin-top: 8px; }
+  .strich { height: 6px; background: #c8102e; position: fixed; left: 0; right: 0; bottom: 0; }
+</style>
+</head>
+<body>
+<main>
+  <img class="logo" src="icons/splash_logo_klar_dunkel.png" alt="IRON PULSE – Feel the beat of iron.">
+  <div class="sprachen"><button data-l="de">DE</button><button data-l="ro">RO</button><button data-l="en">EN</button></div>
+  <div class="wahl">
+    <a class="knopf app" href="./"><span data-t="app"></span><small data-t="appSub"></small></a>
+    <button class="knopf film" id="zeigen"><span data-t="film"></span><small data-t="filmSub"></small></button>
+  </div>
+  <section id="filme">
+    <h2 data-t="tour"></h2>
+    <video class="hoch" controls playsinline preload="metadata" poster="film/tour.jpg" src="film/iron_pulse_tour_en.mp4"></video>
+    <h2 data-t="promo"></h2>
+    <video controls playsinline preload="metadata" poster="film/promo.jpg" src="film/iron_pulse_promo_en.mp4"></video>
+    <div class="hinweis" data-t="hinweis"></div>
+  </section>
+</main>
+<div class="strich"></div>
+<script>
+  var T = {
+    de: { app: '📱 App öffnen', appSub: 'Direkt im Browser, ohne Download. Auf dem Handy über „Zum Startbildschirm“ als App speichern.',
+      film: '▶ Video ansehen', filmSub: 'Die App-Tour (6 Minuten) und der Werbefilm (1,5 Minuten)',
+      tour: 'App-Tour – ein Tag mit IRON PULSE', promo: 'Werbefilm', hinweis: 'Die Videos sind auf Englisch.' },
+    ro: { app: '📱 Deschide aplicația', appSub: 'Direct în browser, fără descărcare. Pe telefon o poți salva cu „Adaugă pe ecranul principal”.',
+      film: '▶ Vezi videoclipul', filmSub: 'Turul aplicației (6 minute) și clipul de prezentare (1,5 minute)',
+      tour: 'Turul aplicației – o zi cu IRON PULSE', promo: 'Clip de prezentare', hinweis: 'Videoclipurile sunt în limba engleză.' },
+    en: { app: '📱 Open the app', appSub: 'Right in the browser, no download. On your phone, use “Add to Home Screen” to keep it as an app.',
+      film: '▶ Watch the video', filmSub: 'The app tour (6 minutes) and the promo film (1.5 minutes)',
+      tour: 'App tour – a day with IRON PULSE', promo: 'Promo film', hinweis: '' }
+  };
+  function sprache(l) {
+    document.documentElement.lang = l;
+    document.querySelectorAll('[data-t]').forEach(function (e) { e.textContent = T[l][e.dataset.t]; });
+    document.querySelectorAll('.sprachen button').forEach(function (b) { b.classList.toggle('on', b.dataset.l === l); });
+  }
+  var start = (navigator.language || 'de').slice(0, 2);
+  sprache(T[start] ? start : 'de');
+  document.querySelectorAll('.sprachen button').forEach(function (b) { b.onclick = function () { sprache(b.dataset.l); }; });
+  document.getElementById('zeigen').onclick = function () {
+    var f = document.getElementById('filme'); f.classList.add('an'); f.scrollIntoView({ behavior: 'smooth' });
+  };
+</script>
+</body>
+</html>
